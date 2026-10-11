@@ -550,3 +550,53 @@ body{
   .travel-site .service-details { grid-template-columns: 1fr; padding: 13px; }
   .travel-site .service-details .form-field-wide { grid-column: auto; }
 }
+
+/* Header layout */
+.travel-site .site-header {
+  position: relative;
+  z-index: 100;
+}
+
+.travel-site .nav-wrap {
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+/* Logo link */
+.travel-site .wordmark {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  max-width: 240px;
+  text-decoration: none;
+}
+
+/* Logo image */
+.travel-site .wordmark img {
+  display: block;
+  width: 200px;
+  height: 64px;
+  max-width: 100%;
+  object-fit: contain;
+  object-position: left center;
+}
+
+/* Mobile logo */
+@media (max-width: 600px) {
+  .travel-site .nav-wrap {
+    min-height: 70px;
+    gap: 12px;
+  }
+
+  .travel-site .wordmark {
+    max-width: 180px;
+  }
+
+  .travel-site .wordmark img {
+    width: 160px;
+    height: 54px;
+  }
+}
