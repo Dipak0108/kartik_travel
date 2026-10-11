@@ -1,0 +1,552 @@
+
+@source "./**/*.{html}";
+
+:root {
+  --background: 44 42% 94%;
+  --foreground: 218 48% 17%;
+  --card: 0 0% 100%;
+  --card-foreground: 218 48% 17%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 218 48% 17%;
+  --primary: 214 87% 43%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 210 35% 95%;
+  --secondary-foreground: 218 48% 22%;
+  --muted: 210 30% 95%;
+  --muted-foreground: 215 17% 43%;
+  --accent: 143 42% 94%;
+  --accent-foreground: 150 48% 25%;
+  --destructive: 0 74% 55%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 213 24% 87%;
+  --input: 213 24% 87%;
+  --ring: 214 87% 43%;
+  --radius: 0.8rem;
+  --sidebar-background: 210 40% 98%;
+  --sidebar-foreground: 215 17% 43%;
+  --sidebar-primary: 214 87% 43%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 210 35% 95%;
+  --sidebar-accent-foreground: 218 48% 22%;
+  --sidebar-border: 213 24% 87%;
+  --sidebar-ring: 214 87% 43%;
+  --chat-sidebar-width: 17.25rem;
+  --chat-sidebar-content-inset: 0.5rem;
+  --chat-sidebar-row-padding: 0.75rem;
+  --chat-sidebar-title-fade: 1.25rem;
+}
+
+.chat-layout-shell {
+  --agent-layout-left-drawer-expanded-width: var(--chat-sidebar-width);
+  --agent-native-lower-surface: var(--agent-kit-nav-surface);
+}
+
+.agentkit-chat-empty-copy {
+  text-align: center;
+}
+
+.agentkit-chat-empty-copy h1 {
+  margin: 0;
+  color: hsl(var(--foreground));
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.agent-kit-chat-footer-stack {
+  inline-size: min(100%, 47rem);
+  margin-inline: auto;
+  pointer-events: auto;
+}
+
+.agent-kit-chat-footer-stack > .agentkit-composer-stack {
+  inline-size: 100%;
+}
+
+.agent-kit-chat-guided-question {
+  max-block-size: min(32rem, 58dvh);
+  overflow: auto;
+  margin-block-end: 0.5rem;
+  border: 1px solid var(--agentkit-border);
+  border-radius: var(--agentkit-radius);
+  background: var(--agentkit-surface);
+  box-shadow: var(--agentkit-elevation);
+}
+
+.chat-sidebar-history .an-chat-history__list {
+  padding-top: 0;
+}
+
+.chat-sidebar-history .an-chat-history__section-label {
+  padding: 8px
+    calc(var(--chat-sidebar-content-inset) + var(--chat-sidebar-row-padding))
+    5px;
+  color: hsl(var(--sidebar-foreground) / 0.66);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.chat-sidebar-history.an-chat-history--rail .an-chat-history-row {
+  margin-inline: var(--chat-sidebar-content-inset);
+  border-radius: calc(var(--radius) + 2px);
+}
+
+.chat-sidebar-history.an-chat-history--rail .an-chat-history-row__button {
+  min-height: 34px;
+  padding-block: 7px;
+  padding-inline: var(--chat-sidebar-row-padding);
+  color: hsl(var(--sidebar-foreground));
+}
+
+.chat-sidebar-history.an-chat-history--rail
+  .an-chat-history-row--has-menu
+  .an-chat-history-row__button {
+  padding-inline-end: calc(var(--chat-sidebar-row-padding) + 1.5rem);
+}
+
+.chat-sidebar-history .an-chat-history-row__title {
+  flex: 1 1 auto;
+  color: hsl(var(--sidebar-accent-foreground));
+  font-size: 13px;
+  font-weight: 400;
+  text-overflow: clip;
+}
+
+.chat-sidebar-thread-title-shell {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 6px;
+}
+
+.chat-sidebar-thread-title {
+  display: block;
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.chat-sidebar-thread-running {
+  color: hsl(var(--sidebar-foreground) / 0.72);
+}
+
+.chat-sidebar-thread-title[data-overflow="true"] {
+  mask-image: linear-gradient(
+    to right,
+    hsl(var(--foreground)) 0,
+    hsl(var(--foreground)) calc(100% - var(--chat-sidebar-title-fade)),
+    hsl(var(--foreground) / 0) 100%
+  );
+}
+
+.chat-sidebar-thread-title__content {
+  display: block;
+  width: max-content;
+  transform: translateX(0);
+}
+
+.an-chat-history-row:hover
+  .chat-sidebar-thread-title[data-overflow="true"]
+  .chat-sidebar-thread-title__content {
+  animation: chat-sidebar-title-reveal
+    var(--chat-sidebar-title-duration, 1800ms) ease-in-out 350ms;
+}
+
+.chat-sidebar-thread-details {
+  border-color: hsl(var(--sidebar-border));
+}
+
+.chat-sidebar-history.an-chat-history--rail
+  .an-chat-history-row__menu-trigger--pinned {
+  pointer-events: none;
+  opacity: 0;
+}
+
+.chat-sidebar-history.an-chat-history--rail
+  .an-chat-history-row:hover
+  .an-chat-history-row__menu-trigger--pinned,
+.chat-sidebar-history.an-chat-history--rail
+  .an-chat-history-row:focus-within
+  .an-chat-history-row__menu-trigger--pinned,
+.chat-sidebar-history.an-chat-history--rail
+  .an-chat-history-row__menu-trigger--pinned[aria-expanded="true"] {
+  pointer-events: auto;
+  opacity: 1;
+}
+
+@keyframes chat-sidebar-title-reveal {
+  to {
+    transform: translateX(calc(-1 * var(--chat-sidebar-title-shift, 0px)));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .an-chat-history-row:hover .chat-sidebar-thread-title__content {
+    animation: none;
+  }
+}
+
+.travel-site {
+  --travel-ink: #19392f;
+  --travel-muted: #68766e;
+  --travel-blue: #1d6d57;
+  --travel-blue-dark: #14513f;
+  --travel-green: #1d6d57;
+  --travel-gold: #e7a83b;
+  --travel-paper: #f6f1e6;
+  --travel-wash: #e3ecdf;
+  --travel-line: #d9e4d5;
+  min-height: 100%;
+  background: var(--travel-paper);
+  color: var(--travel-ink);
+  font-family: "Inter Variable", "Inter", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.travel-site * { box-sizing: border-box; }
+.travel-site a { color: inherit; text-decoration: none; }
+.travel-site button, .travel-site input, .travel-site textarea, .travel-site select { font: inherit; }
+.travel-site .site-width { width: min(1160px, calc(100% - 64px)); margin-inline: auto; }
+.travel-site .skip-link {
+  position: absolute; z-index: 20; top: 8px; left: 8px; padding: 10px 14px;
+  transform: translateY(-150%); border-radius: 8px; background: #fff; color: var(--travel-ink);
+}
+.travel-site .skip-link:focus { transform: translateY(0); }
+.travel-site :focus-visible { outline: 3px solid #eeae30; outline-offset: 3px; }
+.travel-site .contact-strip { background: #e5e9dd; border-bottom: 1px solid #d5ddce; color: #43594d; font-size: 12px; }
+.travel-site .contact-strip-inner, .travel-site .contact-strip-links,
+.travel-site .contact-strip a, .travel-site .contact-strip span { display: flex; align-items: center; }
+.travel-site .contact-strip-inner { min-height: 38px; justify-content: space-between; gap: 20px; }
+.travel-site .contact-strip-inner > span, .travel-site .contact-strip-links { gap: 8px; }
+.travel-site .contact-strip-links { gap: 24px; }
+.travel-site .contact-strip a { gap: 7px; transition: color .18s ease; }
+.travel-site .contact-strip a:hover { color: var(--travel-blue); }
+.travel-site .site-header { position: sticky; top: 0; z-index: 10; background: rgb(246 241 230 / 96%); border-bottom: 1px solid rgb(213 221 206 / 90%); backdrop-filter: blur(14px); }
+.travel-site .nav-wrap { position: relative; display: flex; min-height: 76px; align-items: center; justify-content: space-between; }
+.travel-site .wordmark { display: inline-flex; align-items: center; gap: 10px; color: var(--travel-ink); font-size: 19px; font-weight: 800; letter-spacing: -.055em; }
+.travel-site .wordmark b { color: var(--travel-blue); font-weight: 650; }
+.travel-site .wordmark-symbol { display: grid; width: 34px; height: 34px; place-items: center; border-radius: 11px 11px 11px 3px; background: #e1eee5; color: var(--travel-blue); transform: rotate(-7deg); }
+.travel-site .wordmark-symbol svg { transform: rotate(7deg); }
+.travel-site .primary-nav { display: flex; align-items: center; gap: 34px; color: #40536b; font-size: 13px; font-weight: 560; }
+.travel-site .primary-nav > a:not(.nav-cta) { transition: color .18s ease; }
+.travel-site .primary-nav > a:not(.nav-cta):hover { color: var(--travel-blue); }
+.travel-site .nav-cta, .travel-site .button { display: inline-flex; align-items: center; justify-content: center; gap: 9px; border: 0; border-radius: 7px; cursor: pointer; font-size: 13px; font-weight: 680; transition: background .18s ease, color .18s ease, transform .18s ease; }
+.travel-site .nav-cta { min-height: 42px; padding: 0 16px; background: var(--travel-blue); color: white; }
+.travel-site .nav-cta:hover, .travel-site .button-primary:hover { background: var(--travel-blue-dark); transform: translateY(-1px); }
+.travel-site .menu-toggle { display: none; color: var(--travel-ink); }
+.travel-site .hero.site-width { width: 100%; max-width: none; margin-inline: 0; }
+.travel-site .hero { position: relative; isolation: isolate; display: flex; min-height: min(760px, calc(100svh - 114px)); align-items: center; overflow: hidden; margin-block: 0 0; padding: clamp(64px, 8vw, 110px) max(28px, calc((100vw - 1160px) / 2)); background-color: #0b2e27; background-image: linear-gradient(90deg, rgb(7 31 25 / 92%) 0%, rgb(8 40 32 / 79%) 43%, rgb(8 40 32 / 22%) 100%), linear-gradient(0deg, rgb(5 24 19 / 35%), transparent 55%), url("https://images.pexels.com/photos/7056203/pexels-photo-7056203.jpeg?auto=compress&cs=tinysrgb&w=1800"); background-position: center, center, center 48%; background-size: cover; color: #fff; }
+.travel-site .hero::before { position: absolute; z-index: -1; top: -230px; right: -155px; width: 740px; height: 740px; border-radius: 50%; background: repeating-radial-gradient(ellipse at center, transparent 0 27px, rgb(194 222 246 / 12%) 28px 29px); content: ""; }
+.travel-site .hero::after { position: absolute; z-index: -1; right: 42%; bottom: -116px; width: 300px; height: 190px; border: 1px solid rgb(220 236 249 / 14%); border-radius: 50%; transform: rotate(-14deg); content: ""; }
+.travel-site .hero-copy { position: relative; z-index: 1; width: min(720px, 100%); padding-block: 20px; }
+.travel-site .eyebrow { display: inline-flex; align-items: center; gap: 8px; color: var(--travel-green); font-size: 10px; font-weight: 750; letter-spacing: .15em; line-height: 1.4; }
+.travel-site .hero .eyebrow { color: #bce1b9; }
+.travel-site .hero .eyebrow-dot { background: #8bd2a2; box-shadow: 0 0 0 4px rgb(139 210 162 / 17%); }
+.travel-site .eyebrow-dot, .travel-site .art-label-dot { width: 7px; height: 7px; flex: 0 0 auto; border-radius: 50%; background: #48a779; box-shadow: 0 0 0 4px #e5f4eb; }
+.travel-site h1, .travel-site h2, .travel-site h3, .travel-site p { margin: 0; }
+.travel-site .hero h1 { margin-top: 22px; color: #fff; font-size: clamp(56px, 8vw, 104px); font-weight: 760; letter-spacing: -.078em; line-height: .94; }
+.travel-site .hero h1 span { color: #ffd26e; }
+.travel-site .hero-description { max-width: 410px; margin-top: 22px; color: #d3e3f2; font-size: 16px; line-height: 1.75; }
+.travel-site .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 29px; }
+.travel-site .button { min-height: 48px; padding: 0 18px; }
+.travel-site .button-primary { background: var(--travel-blue); color: #fff; }
+.travel-site .hero .button-primary { background: #e7a83b; color: #19392f; }
+.travel-site .hero .button-primary:hover { background: #f3c36d; }
+.travel-site .hero .button-secondary { border-color: rgb(255 255 255 / 32%); background: rgb(255 255 255 / 7%); color: #fff; }
+.travel-site .hero .button-secondary:hover { background: rgb(255 255 255 / 15%); }
+.travel-site .button-secondary { border: 1px solid #d7d9cf; background: #f9f6ed; color: var(--travel-ink); }
+.travel-site .button-secondary:hover { border-color: #a9c7e8; background: #f6faff; }
+.travel-site .hero-location { display: flex; align-items: center; gap: 7px; margin-top: 26px; color: #d1deeb; font-size: 12px; }
+.travel-site .hero-location svg { color: #a3d7ac; }
+.travel-site .hero-scroll { position: absolute; z-index: 1; bottom: 25px; left: 50%; display: grid; width: 22px; height: 34px; place-items: start center; padding-top: 6px; border: 1px solid rgb(255 255 255 / 48%); border-radius: 12px; }
+.travel-site .hero-scroll span { width: 3px; height: 7px; border-radius: 4px; background: #f3c36d; animation: travel-scroll 1.6s ease-in-out infinite; }
+@keyframes travel-scroll { 50% { transform: translateY(8px); opacity: .45; } }
+.travel-site .services-section { padding-block: 70px 74px; background: var(--travel-wash); }
+.travel-site .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 40px; margin-bottom: 30px; }
+.travel-site .section-heading h2, .travel-site .about-copy h2, .travel-site .faq-intro h2 { margin-top: 10px; font-size: clamp(27px, 3.2vw, 38px); font-weight: 720; letter-spacing: -.055em; line-height: 1.15; }
+.travel-site .section-heading > p { max-width: 350px; padding-bottom: 3px; color: var(--travel-muted); font-size: 13px; line-height: 1.65; }
+.travel-site .services-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.travel-site .service-card { display: block; min-width: 0; overflow: hidden; border: 1px solid #dce8e1; border-radius: 7px 7px 13px 13px; background: #fff; transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease; }
+.travel-site .service-card:hover { transform: translateY(-4px); border-color: #98c5aa; box-shadow: 0 15px 32px rgb(22 58 93 / 11%); }
+.travel-site .service-photo { position: relative; display: block; height: 145px; overflow: hidden; background: #dce8ed; }
+.travel-site .service-photo::after { position: absolute; inset: 28% 0 0; background: linear-gradient(180deg, transparent, rgb(12 35 54 / 32%)); content: ""; pointer-events: none; }
+.travel-site .service-photo > img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .35s ease; }
+.travel-site .service-card:hover .service-photo > img { transform: scale(1.045); }
+.travel-site .service-index { position: absolute; z-index: 1; top: 12px; right: 12px; display: grid; width: 27px; height: 27px; place-items: center; border: 1px solid rgb(255 255 255 / 55%); border-radius: 50%; background: rgb(255 255 255 / 88%); color: #29455e; font-size: 9px; font-weight: 750; }
+.travel-site .service-icon { position: absolute; z-index: 1; bottom: 11px; left: 13px; display: grid; width: 39px; height: 39px; place-items: center; border: 1px solid rgb(255 255 255 / 88%); border-radius: 11px; background: #fff; color: var(--travel-blue); box-shadow: 0 4px 12px rgb(10 32 49 / 15%); }
+.travel-site .service-card:nth-child(3n + 2) .service-icon { color: var(--travel-green); }
+.travel-site .service-card:nth-child(4n + 3) .service-icon { color: #ba8012; }
+.travel-site .service-copy { position: relative; display: block; min-height: 91px; padding: 15px 42px 15px 15px; }
+.travel-site .service-title { display: block; font-size: 13px; font-weight: 720; }
+.travel-site .service-detail { display: block; margin-top: 5px; color: var(--travel-muted); font-size: 11px; line-height: 1.45; }
+.travel-site .service-arrow { position: absolute; right: 14px; bottom: 18px; color: #95a7bb; transition: transform .18s ease, color .18s ease; }
+.travel-site .service-card:hover .service-arrow { transform: translateX(3px); color: var(--travel-blue); }
+.travel-site .about-section { display: grid; grid-template-columns: 1fr .9fr; align-items: center; gap: clamp(48px, 8vw, 105px); padding-block: 96px; }
+.travel-site .about-copy h2 { margin-top: 13px; font-size: clamp(30px, 4vw, 44px); line-height: 1.18; }
+.travel-site .about-copy h2 span { color: var(--travel-blue); }
+.travel-site .about-copy > p { max-width: 450px; margin-top: 17px; color: var(--travel-muted); font-size: 14px; line-height: 1.8; }
+.travel-site .text-link { display: inline-flex; align-items: center; gap: 7px; margin-top: 20px; color: var(--travel-blue); font-size: 13px; font-weight: 700; }
+.travel-site .text-link svg { transition: transform .18s ease; }
+.travel-site .text-link:hover svg { transform: translateX(3px); }
+.travel-site .office-address { display: flex; align-items: start; gap: 10px; margin-top: 27px; color: #6a7b8f; font-size: 12px; font-style: normal; line-height: 1.7; }
+.travel-site .office-address svg { flex: 0 0 auto; margin-top: 1px; color: var(--travel-green); }
+.travel-site .office-address b { color: var(--travel-ink); font-size: 13px; }
+.travel-site .services-art-card { overflow: hidden; margin: 0; padding: 15px; border: 1px solid #e3ebf3; border-radius: 19px; background: #fff; box-shadow: 0 18px 50px rgb(24 56 92 / 8%); }
+.travel-site .art-card-label { display: flex; align-items: center; gap: 9px; min-height: 28px; padding-inline: 5px; color: #667991; font-size: 9px; font-weight: 750; letter-spacing: .14em; }
+.travel-site .art-card-label .art-label-dot { width: 6px; height: 6px; }
+.travel-site .services-art-card img { display: block; width: 100%; max-height: 325px; aspect-ratio: 1.5; border-radius: 10px; object-fit: contain; background: #f7faff; }
+.travel-site .services-art-card figcaption { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 12px 5px 2px; color: #62748a; font-size: 11px; }
+.travel-site .art-card-caption-mark { flex: 0 0 auto; color: #387b59; font-size: 8px; font-weight: 750; letter-spacing: .1em; }
+.travel-site .inquiry-section { padding-block: 75px; background: #173d31; color: white; }
+.travel-site .inquiry-layout { display: grid; grid-template-columns: .85fr 1.15fr; align-items: start; gap: clamp(42px, 9vw, 115px); }
+.travel-site .eyebrow-light { color: #aed5ff; }
+.travel-site .eyebrow-light .eyebrow-dot { background: #84cf9e; }
+.travel-site .inquiry-intro h2 { margin-top: 16px; color: #fff; font-size: clamp(34px, 4.5vw, 49px); font-weight: 720; letter-spacing: -.06em; line-height: 1.08; }
+.travel-site .inquiry-intro > p { max-width: 330px; margin-top: 16px; color: #d0e0f1; font-size: 14px; line-height: 1.75; }
+.travel-site .inquiry-contact { display: flex; align-items: center; gap: 12px; width: fit-content; margin-top: 24px; }
+.travel-site .inquiry-contact + .inquiry-contact { margin-top: 16px; }
+.travel-site .contact-icon { display: grid; width: 38px; height: 38px; flex: 0 0 auto; place-items: center; border: 1px solid rgb(255 255 255 / 20%); border-radius: 10px; color: #d7eaff; }
+.travel-site .inquiry-contact > span:last-child { display: grid; gap: 3px; }
+.travel-site .inquiry-contact small { color: #bed0e2; font-size: 10px; }
+.travel-site .inquiry-contact b { font-size: 13px; font-weight: 650; }
+.travel-site .inquiry-form { padding: 27px; border: 1px solid #e3eaf2; border-radius: 14px; background: #fff; color: var(--travel-ink); box-shadow: 0 18px 55px rgb(4 25 52 / 17%); }
+.travel-site .form-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 19px; }
+.travel-site .form-heading h3 { font-size: 19px; font-weight: 720; letter-spacing: -.03em; }
+.travel-site .form-heading > span { color: var(--travel-muted); font-size: 10px; }
+.travel-site .form-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 12px; }
+.travel-site .honeypot-field { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.travel-site .form-field { display: grid; align-content: start; gap: 7px; color: #394e66; font-size: 11px; font-weight: 650; }
+.travel-site .form-field input, .travel-site .form-field select, .travel-site .form-field textarea { width: 100%; min-width: 0; min-height: 42px; padding: 10px 11px; border: 1px solid #d9e2eb; border-radius: 6px; outline: none; background: #fff; color: var(--travel-ink); font-size: 12px; font-weight: 450; transition: border-color .16s ease, box-shadow .16s ease; }
+.travel-site .form-field textarea { min-height: 84px; resize: vertical; line-height: 1.5; }
+.travel-site .form-field input::placeholder, .travel-site .form-field textarea::placeholder { color: #a0acb9; }
+.travel-site .form-field input:focus, .travel-site .form-field select:focus, .travel-site .form-field textarea:focus { border-color: var(--travel-blue); box-shadow: 0 0 0 3px rgb(20 103 197 / 12%); }
+.travel-site .form-field-wide { grid-column: 1 / -1; }
+.travel-site .optional-label { color: #8291a2; font-size: 10px; font-weight: 450; }
+.travel-site .form-status { margin-top: 15px; padding: 10px 12px; border-radius: 6px; font-size: 11px; line-height: 1.55; }
+.travel-site .success-status { background: #e9f7ee; color: #17683b; }
+.travel-site .error-status { background: #fff0ed; color: #9c3022; }
+.travel-site .form-submit { width: 100%; margin-top: 16px; }
+.travel-site .form-submit:disabled { cursor: wait; opacity: .74; }
+.travel-site .privacy-note { margin-top: 10px; color: #8190a1; font-size: 10px; text-align: center; }
+.travel-site .faq-section { display: grid; grid-template-columns: .72fr 1.28fr; gap: 70px; padding-block: 82px 95px; }
+.travel-site .faq-intro h2 { margin-top: 12px; }
+.travel-site .faq-intro > p { max-width: 260px; margin-top: 13px; color: var(--travel-muted); font-size: 13px; line-height: 1.7; }
+.travel-site .faq-list { border-top: 1px solid var(--travel-line); }
+.travel-site .faq-item { border-bottom: 1px solid var(--travel-line); }
+.travel-site .faq-item summary { display: flex; min-height: 58px; align-items: center; justify-content: space-between; gap: 20px; color: var(--travel-ink); cursor: pointer; font-size: 13px; font-weight: 650; list-style: none; }
+.travel-site .faq-item summary::-webkit-details-marker { display: none; }
+.travel-site .faq-plus { position: relative; width: 20px; height: 20px; flex: 0 0 auto; border: 1px solid #d5e0eb; border-radius: 50%; }
+.travel-site .faq-plus::before, .travel-site .faq-plus::after { position: absolute; top: 9px; left: 5px; width: 8px; height: 1px; background: #5b7088; content: ""; transition: transform .18s ease; }
+.travel-site .faq-plus::after { transform: rotate(90deg); }
+.travel-site .faq-item[open] .faq-plus::after { transform: rotate(0); }
+.travel-site .faq-item > p { max-width: 540px; padding: 0 30px 18px 0; color: var(--travel-muted); font-size: 12px; line-height: 1.75; }
+.travel-site .site-footer { background: #102b24; color: #fff; }
+.travel-site .footer-main { display: flex; min-height: 134px; align-items: center; gap: 34px; }
+.travel-site .footer-brand { display: grid; flex: 0 0 auto; justify-items: center; gap: 5px; color: #fff; font-size: 12px; font-weight: 680; }
+.travel-site .footer-logo { display: block; width: 174px; height: 95px; overflow: hidden; border-radius: 8px; background: #fff; }
+.travel-site .footer-logo img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.travel-site .footer-services { max-width: 600px; margin-right: auto; color: #d5e2f0; font-size: 12px; line-height: 1.9; }
+.travel-site .footer-services span { padding-inline: 3px; color: #f3bf51; }
+.travel-site .footer-socials { display: flex; flex: 0 0 auto; gap: 8px; }
+.travel-site .footer-socials a { display: grid; width: 34px; height: 34px; place-items: center; border: 1px solid rgb(255 255 255 / 21%); border-radius: 50%; color: #d3e3f6; transition: background .18s ease, color .18s ease; }
+.travel-site .footer-socials a:hover { background: white; color: #124a83; }
+.travel-site .footer-bottom { display: flex; min-height: 42px; align-items: center; justify-content: space-between; gap: 12px; border-top: 1px solid rgb(255 255 255 / 14%); color: #a6bad0; font-size: 10px; }
+
+@media (max-width: 900px) {
+  .travel-site .hero { min-height: min(760px, max(600px, calc(100svh - 114px))); padding-inline: max(30px, calc((100vw - 720px) / 2)); }
+  .travel-site .services-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .travel-site .about-section { gap: 42px; }
+  .travel-site .inquiry-layout { gap: 40px; }
+  .travel-site .faq-section { gap: 40px; }
+}
+
+@media (max-width: 640px) {
+  .travel-site .site-width { width: min(100% - 36px, 500px); }
+  .travel-site .contact-strip-inner { min-height: 34px; }
+  .travel-site .contact-strip-inner > span { font-size: 0; gap: 0; }
+  .travel-site .contact-strip-inner > span svg { width: 16px; height: 16px; }
+  .travel-site .contact-strip-links { gap: 13px; }
+  .travel-site .contact-strip-links a { font-size: 10px; }
+  .travel-site .contact-strip-links a:first-child { max-width: 35px; overflow: hidden; white-space: nowrap; }
+  .travel-site .nav-wrap { min-height: 64px; }
+  .travel-site .menu-toggle { display: grid; width: 40px; height: 40px; place-items: center; border: 1px solid #e0e7ef; border-radius: 8px; background: #fff; cursor: pointer; }
+  .travel-site .primary-nav { position: absolute; top: calc(100% + 1px); right: -18px; left: -18px; display: none; align-items: stretch; gap: 0; padding: 8px 18px 16px; border-bottom: 1px solid var(--travel-line); background: #fff; box-shadow: 0 15px 20px rgb(14 41 74 / 8%); }
+  .travel-site .primary-nav.is-open { display: flex; flex-direction: column; }
+  .travel-site .primary-nav { background: var(--travel-paper); }
+  .travel-site .primary-nav > a:not(.nav-cta) { padding: 13px 4px; border-bottom: 1px solid #dedbcf; }
+  .travel-site .nav-cta { margin-top: 11px; }
+  .travel-site .hero { min-height: min(760px, max(620px, calc(100svh - 98px))); padding: 60px 24px 76px; background-position: center, center, 58% center; }
+  .travel-site .hero::before { top: -290px; right: -530px; opacity: .55; }
+  .travel-site .hero::after { display: none; }
+  .travel-site .hero-copy { padding-block: 0; }
+  .travel-site .hero h1 { margin-top: 17px; font-size: clamp(48px, 13vw, 65px); }
+  .travel-site .hero-description { max-width: 380px; margin-top: 16px; font-size: 14px; }
+  .travel-site .hero-actions { gap: 9px; margin-top: 22px; }
+  .travel-site .button { min-height: 45px; padding-inline: 13px; font-size: 11px; }
+  .travel-site .hero-location { margin-top: 19px; font-size: 11px; }
+  .travel-site .hero-scroll { display: none; }
+  .travel-site .services-section { padding-block: 53px; }
+  .travel-site .section-heading { align-items: start; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+  .travel-site .section-heading h2, .travel-site .faq-intro h2 { font-size: 29px; }
+  .travel-site .section-heading > p { max-width: 360px; font-size: 12px; }
+  .travel-site .services-grid { gap: 9px; }
+  .travel-site .service-card { min-height: 0; padding: 0; }
+  .travel-site .service-photo { height: 120px; }
+  .travel-site .service-copy { min-height: 88px; padding: 12px 30px 12px 12px; }
+  .travel-site .service-index { top: 10px; right: 10px; }
+  .travel-site .service-icon { bottom: 9px; left: 10px; width: 34px; height: 34px; }
+  .travel-site .service-icon svg { width: 19px; height: 19px; }
+  .travel-site .service-title { font-size: 12px; }
+  .travel-site .service-detail { font-size: 10px; }
+  .travel-site .service-arrow { right: 10px; bottom: 13px; width: 15px; height: 15px; }
+  .travel-site .about-section { grid-template-columns: 1fr; gap: 29px; padding-block: 63px; }
+  .travel-site .about-copy h2 { font-size: 32px; }
+  .travel-site .about-copy > p { font-size: 13px; }
+  .travel-site .services-art-card { padding: 11px; border-radius: 14px; }
+  .travel-site .services-art-card img { max-height: 255px; }
+  .travel-site .inquiry-section { padding-block: 53px; }
+  .travel-site .inquiry-layout { grid-template-columns: 1fr; gap: 27px; }
+  .travel-site .inquiry-intro h2 { font-size: 38px; }
+  .travel-site .inquiry-intro > p { max-width: 390px; font-size: 13px; }
+  .travel-site .inquiry-contact { margin-top: 18px; }
+  .travel-site .inquiry-form { padding: 19px 15px; border-radius: 11px; }
+  .travel-site .form-fields { gap: 12px 9px; }
+  .travel-site .form-field { font-size: 10px; }
+  .travel-site .form-field input, .travel-site .form-field select, .travel-site .form-field textarea { padding: 9px; font-size: 11px; }
+  .travel-site .faq-section { grid-template-columns: 1fr; gap: 26px; padding-block: 58px 67px; }
+  .travel-site .faq-intro > p { max-width: 320px; }
+  .travel-site .faq-item summary { min-height: 55px; font-size: 12px; }
+  .travel-site .footer-main { min-height: unset; flex-wrap: wrap; gap: 14px; padding-block: 20px; }
+  .travel-site .footer-logo { width: 142px; height: 76px; }
+  .travel-site .footer-services { flex-basis: 100%; order: 1; max-width: none; margin: 0; font-size: 10px; }
+  .travel-site .footer-socials { margin-left: auto; }
+  .travel-site .footer-bottom { min-height: 40px; font-size: 9px; }
+}
+
+@media (max-width: 360px) {
+  .travel-site .site-width { width: calc(100% - 28px); }
+  .travel-site .hero-actions { align-items: stretch; flex-direction: column; }
+  .travel-site .hero-actions .button { width: 100%; }
+  .travel-site .form-fields { grid-template-columns: 1fr; }
+  .travel-site .form-field-wide { grid-column: auto; }
+  .travel-site .contact-strip-links a { gap: 4px; font-size: 9px; }
+  .travel-site .contact-strip-links a:first-child { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .travel-site *, .travel-site *::before, .travel-site *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
+}
+
+.chat-sidebar-history.an-chat-history--rail
+  .an-chat-history-row--active
+  .an-chat-history-row__button {
+  background: hsl(var(--sidebar-accent));
+  color: hsl(var(--sidebar-accent-foreground));
+}
+
+.dark {
+  --background: 220 29% 10%;
+  --foreground: 210 32% 94%;
+  --card: 219 27% 14%;
+  --card-foreground: 210 32% 94%;
+  --popover: 219 27% 14%;
+  --popover-foreground: 210 32% 94%;
+  --primary: 214 90% 66%;
+  --primary-foreground: 220 35% 12%;
+  --secondary: 217 24% 19%;
+  --secondary-foreground: 210 32% 94%;
+  --muted: 217 24% 19%;
+  --muted-foreground: 215 18% 67%;
+  --accent: 149 31% 20%;
+  --accent-foreground: 148 45% 83%;
+  --destructive: 0 70% 55%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 217 22% 25%;
+  --input: 217 22% 25%;
+  --ring: 214 90% 66%;
+  --radius: 0.8rem;
+  --sidebar-background: 220 27% 12%;
+  --sidebar-foreground: 215 18% 67%;
+  --sidebar-primary: 214 90% 66%;
+  --sidebar-primary-foreground: 220 35% 12%;
+  --sidebar-accent: 217 24% 19%;
+  --sidebar-accent-foreground: 210 32% 94%;
+  --sidebar-border: 217 22% 25%;
+  --sidebar-ring: 214 90% 66%;
+}
+
+@layer base {
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Inter Variable", "Inter", sans-serif;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+
+  }
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted-foreground) / 0.22);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground) / 0.34);
+}
+body{
+  margin: 0px;
+}
+
+/* Enquiry form feedback and submit state */
+.travel-site .form-status[hidden] { display: none; }
+.travel-site .form-status { overflow-wrap: anywhere; }
+.travel-site .form-submit:disabled { cursor: wait; opacity: .7; }
+.travel-site .form-status.success-status { background: #e9f7ee; color: #17683b; }
+.travel-site .form-status.error-status { background: #fff0ed; color: #9c3022; }
+
+/* SEO/accessibility-friendly focus and small-screen form behavior */
+.travel-site .form-field input:focus-visible,
+.travel-site .form-field select:focus-visible,
+.travel-site .form-field textarea:focus-visible,
+.travel-site .form-submit:focus-visible {
+  outline: 3px solid #e7a83b;
+  outline-offset: 2px;
+}
+@media (max-width: 560px) {
+  .travel-site .form-fields { grid-template-columns: 1fr; }
+  .travel-site .form-field-wide { grid-column: auto; }
+}
+
+
+/* Conditional enquiry fields for flights, trains, buses, cabs and hotels */
+.travel-site .service-details {
+  min-width: 0;
+  margin: 2px 0 0;
+  padding: 16px;
+  border: 1px solid #d9e2eb;
+  border-radius: 9px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px 12px;
+  background: #f8fafc;
+}
+.travel-site .service-details[hidden] { display: none !important; }
+.travel-site .service-details legend {
+  padding: 0 7px;
+  color: var(--travel-ink);
+  font-size: 12px;
+  font-weight: 750;
+}
+.travel-site .service-details .form-field-wide { grid-column: 1 / -1; }
+@media (max-width: 560px) {
+  .travel-site .service-details { grid-template-columns: 1fr; padding: 13px; }
+  .travel-site .service-details .form-field-wide { grid-column: auto; }
+}
