@@ -209,7 +209,7 @@
 .travel-site * { box-sizing: border-box; }
 .travel-site a { color: inherit; text-decoration: none; }
 .travel-site button, .travel-site input, .travel-site textarea, .travel-site select { font: inherit; }
-.travel-site .site-width { width: min(1160px, calc(100% - 64px)); margin-inline: auto; }
+.travel-site .site-width { width: min(1160px, calc(100% - 24px)); margin-inline: auto; }
 .travel-site .skip-link {
   position: absolute; z-index: 20; top: 8px; left: 8px; padding: 10px 14px;
   transform: translateY(-150%); border-radius: 8px; background: #fff; color: var(--travel-ink);
@@ -224,7 +224,11 @@
 .travel-site .contact-strip-links { gap: 24px; }
 .travel-site .contact-strip a { gap: 7px; transition: color .18s ease; }
 .travel-site .contact-strip a:hover { color: var(--travel-blue); }
-.travel-site .site-header { position: sticky; top: 0; z-index: 10; background: rgb(246 241 230 / 96%); border-bottom: 1px solid rgb(213 221 206 / 90%); backdrop-filter: blur(14px); }
+.travel-site .site-header { position: sticky; top: 0; z-index: 10; 
+/*  background: rgb(246 241 230 / 96%); */
+background-color:#FFFFFF;
+  border-bottom: 1px solid rgb(213 221 206 / 90%); 
+  backdrop-filter: blur(14px); }
 .travel-site .nav-wrap { position: relative; display: flex; min-height: 76px; align-items: center; justify-content: space-between; }
 .travel-site .wordmark { display: inline-flex; align-items: center; gap: 10px; color: var(--travel-ink); font-size: 19px; font-weight: 800; letter-spacing: -.055em; }
 .travel-site .wordmark b { color: var(--travel-blue); font-weight: 650; }
@@ -237,10 +241,10 @@
 .travel-site .nav-cta { min-height: 42px; padding: 0 16px; background: var(--travel-blue); color: white; }
 .travel-site .nav-cta:hover, .travel-site .button-primary:hover { background: var(--travel-blue-dark); transform: translateY(-1px); }
 .travel-site .menu-toggle { display: none; color: var(--travel-ink); }
-.travel-site .hero.site-width { width: 100%; max-width: none; margin-inline: 0; }
-.travel-site .hero { position: relative; isolation: isolate; display: flex; min-height: min(760px, calc(100svh - 114px)); align-items: center; overflow: hidden; margin-block: 0 0; padding: clamp(64px, 8vw, 110px) max(28px, calc((100vw - 1160px) / 2)); background-color: #0b2e27; background-image: linear-gradient(90deg, rgb(7 31 25 / 92%) 0%, rgb(8 40 32 / 79%) 43%, rgb(8 40 32 / 22%) 100%), linear-gradient(0deg, rgb(5 24 19 / 35%), transparent 55%), url("https://images.pexels.com/photos/7056203/pexels-photo-7056203.jpeg?auto=compress&cs=tinysrgb&w=1800"); background-position: center, center, center 48%; background-size: cover; color: #fff; }
-.travel-site .hero::before { position: absolute; z-index: -1; top: -230px; right: -155px; width: 740px; height: 740px; border-radius: 50%; background: repeating-radial-gradient(ellipse at center, transparent 0 27px, rgb(194 222 246 / 12%) 28px 29px); content: ""; }
-.travel-site .hero::after { position: absolute; z-index: -1; right: 42%; bottom: -116px; width: 300px; height: 190px; border: 1px solid rgb(220 236 249 / 14%); border-radius: 50%; transform: rotate(-14deg); content: ""; }
+.travel-site .hero.site-width { width: min(1200px, calc(100% - 24px));max-width: 1200px;margin-inline: auto; }
+/*.travel-site .hero { position: relative; isolation: isolate; display: flex; min-height: min(760px, calc(100svh - 114px)); align-items: center; overflow: hidden; margin-block: 0 0; padding: clamp(64px, 8vw, 110px) max(28px, calc((100vw - 1160px) / 2)); background-color: #0b2e27; background-image: linear-gradient(90deg, rgb(7 31 25 / 92%) 0%, rgb(8 40 32 / 79%) 43%, rgb(8 40 32 / 22%) 100%), linear-gradient(0deg, rgb(5 24 19 / 35%), transparent 55%), url("https://images.pexels.com/photos/7056203/pexels-photo-7056203.jpeg?auto=compress&cs=tinysrgb&w=1800"); background-position: center, center, center 48%; background-size: cover; color: #fff; }*/
+/*.travel-site .hero::before { position: absolute; z-index: -1; top: -230px; right: -155px; width: 740px; height: 740px; border-radius: 50%; background: repeating-radial-gradient(ellipse at center, transparent 0 27px, rgb(194 222 246 / 12%) 28px 29px); content: ""; }*/
+/*.travel-site .hero::after { position: absolute; z-index: -1; right: 42%; bottom: -116px; width: 300px; height: 190px; border: 1px solid rgb(220 236 249 / 14%); border-radius: 50%; transform: rotate(-14deg); content: ""; }*/
 .travel-site .hero-copy { position: relative; z-index: 1; width: min(720px, 100%); padding-block: 20px; }
 .travel-site .eyebrow { display: inline-flex; align-items: center; gap: 8px; color: var(--travel-green); font-size: 10px; font-weight: 750; letter-spacing: .15em; line-height: 1.4; }
 .travel-site .hero .eyebrow { color: #bce1b9; }
@@ -598,5 +602,204 @@ body{
   .travel-site .wordmark img {
     width: 160px;
     height: 54px;
+  }
+}
+
+
+/* =========================================
+   HERO SECTION — FULL-WIDTH IMAGE SLIDESHOW
+   ========================================= */
+
+.travel-site .hero {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  width: 100%;
+  max-width: none;
+  min-height: min(760px, calc(100svh - 114px));
+  align-items: center;
+  overflow: hidden;
+  margin: 0;
+  padding: clamp(64px, 8vw, 110px)
+    max(28px, calc((100vw - 1160px) / 2));
+
+/*  background-color: #0b2e27;*/
+  color: #fff;
+
+  --hero-opacity-a: 1;
+  --hero-opacity-b: 0;
+}
+
+/* Both layers cover the entire rectangular hero.
+   Reset all old decorative-circle properties. */
+.travel-site .hero::before,
+.travel-site .hero::after {
+  content: "";
+  display: block;
+  position: absolute;
+  inset: 0;
+
+  width: auto;
+  height: auto;
+  border: 0;
+  border-radius: 0;
+  transform: none;
+
+  z-index: 0;
+  pointer-events: none;
+
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  transition: opacity 1.2s ease-in-out;
+}
+
+/* First background image */
+.travel-site .hero::before {
+  background-image:
+    linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(12, 31, 25, 0.46) 48%,
+      rgba(12, 31, 25, 0.12) 100%
+    ),
+    var(--hero-image-a);
+
+  opacity: var(--hero-opacity-a);
+}
+
+/* Second background image */
+.travel-site .hero::after {
+  background-image:
+   linear-gradient(90deg, rgb(0 0 0 / 0%) 0%, rgb(12 31 25 / 0%) 48%, rgb(12 31 25 / 0%) 100%), 
+    var(--hero-image-b, none);
+
+  opacity: var(--hero-opacity-b);
+}
+
+/* Keep all hero content above the background layers */
+.travel-site .hero > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Preserve the existing hero content layout */
+.travel-site .hero-copy {
+  width: min(720px, 100%);
+  padding-block: 20px;
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+  .travel-site .hero {
+    min-height: min(
+      760px,
+      max(600px, calc(100svh - 114px))
+    );
+    padding-inline: max(
+      30px,
+      calc((100vw - 720px) / 2)
+    );
+  }
+}
+
+/* =========================================
+   MOBILE HERO + SLIDESHOW FIX
+   ========================================= */
+
+@media (max-width: 640px) {
+  .travel-site .hero {
+    position: relative;
+    display: flex;
+    width: 100%;
+    min-height: 620px;
+    min-height: max(620px, calc(100svh - 104px));
+    align-items: center;
+    overflow: hidden;
+    padding: 56px 24px 72px;
+    isolation: isolate;
+    background-color: #263a32;
+  }
+
+  /* Ensure both slideshow images fill the hero */
+  .travel-site .hero::before,
+  .travel-site .hero::after {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    border-radius: 0;
+    transform: none;
+    /* Keep the overlay stretched, but scale the photo to the full mobile width
+       while preserving its natural aspect ratio (no image cropping). */
+    background-position: center center, center center;
+    background-repeat: no-repeat, no-repeat;
+    background-size: 100% 100%, 100% auto;
+    pointer-events: none;
+  }
+
+  .travel-site .hero::before {
+    opacity: var(--hero-opacity-a, 1);
+  }
+
+  .travel-site .hero::after {
+    opacity: var(--hero-opacity-b, 0);
+  }
+
+  /* Keep text and buttons above the images */
+  .travel-site .hero-copy {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+  }
+
+  .travel-site .hero h1 {
+    font-size: clamp(44px, 12vw, 62px);
+    line-height: 1;
+    overflow-wrap: anywhere;
+  }
+
+  .travel-site .hero-description {
+    max-width: 100%;
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  .travel-site .hero-actions {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .travel-site .hero-actions .button {
+    min-height: 44px;
+  }
+
+  .travel-site .hero-scroll {
+    display: none;
+  }
+}
+
+/* Final mobile hero adjustment: remove the empty green bands above/below the slide. */
+@media (max-width: 640px) {
+  .travel-site .hero {
+    min-height: 0;
+    height: auto;
+    aspect-ratio: 820 / 380;
+    padding: 0;
+    background-color: transparent;
+  }
+
+  .travel-site .hero::before,
+  .travel-site .hero::after {
+    background-size: 100% 100%, 100% 100%;
+    background-position: center center, center center;
   }
 }
