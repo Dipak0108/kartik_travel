@@ -240,7 +240,7 @@ background-color:#FFFFFF;
 .travel-site .nav-cta { min-height: 42px; padding: 0 16px; background: var(--travel-blue); color: white; }
 .travel-site .nav-cta:hover, .travel-site .button-primary:hover { background: var(--travel-blue-dark); transform: translateY(-1px); }
 .travel-site .menu-toggle { display: none; color: var(--travel-ink); }
-.travel-site .hero.site-width { width: min(1200px, calc(100% - 24px));max-width: 1200px;margin-inline: auto; }
+.travel-site .hero.site-width { width: min(100%, calc(100% - 24px));max-width: 100%;margin-inline: auto; }
 /*.travel-site .hero { position: relative; isolation: isolate; display: flex; min-height: min(760px, calc(100svh - 114px)); align-items: center; overflow: hidden; margin-block: 0 0; padding: clamp(64px, 8vw, 110px) max(28px, calc((100vw - 1160px) / 2)); background-color: #0b2e27; background-image: linear-gradient(90deg, rgb(7 31 25 / 92%) 0%, rgb(8 40 32 / 79%) 43%, rgb(8 40 32 / 22%) 100%), linear-gradient(0deg, rgb(5 24 19 / 35%), transparent 55%), url("https://images.pexels.com/photos/7056203/pexels-photo-7056203.jpeg?auto=compress&cs=tinysrgb&w=1800"); background-position: center, center, center 48%; background-size: cover; color: #fff; }*/
 /*.travel-site .hero::before { position: absolute; z-index: -1; top: -230px; right: -155px; width: 740px; height: 740px; border-radius: 50%; background: repeating-radial-gradient(ellipse at center, transparent 0 27px, rgb(194 222 246 / 12%) 28px 29px); content: ""; }*/
 /*.travel-site .hero::after { position: absolute; z-index: -1; right: 42%; bottom: -116px; width: 300px; height: 190px; border: 1px solid rgb(220 236 249 / 14%); border-radius: 50%; transform: rotate(-14deg); content: ""; }*/
