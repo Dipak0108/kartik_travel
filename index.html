@@ -435,24 +435,28 @@
       );
 
       function updateServiceFields() {
-        const selectedService = serviceSelect.value;
+          const selectedService = serviceSelect.value;
 
-        serviceFieldsets.forEach((fieldset) => {
-          const shouldShow =
-            fieldset.dataset.service === selectedService;
+          serviceFieldsets.forEach((fieldset) => {
+            const shouldShow =
+              fieldset.dataset.service === selectedService;
 
-          fieldset.hidden = !shouldShow;
+            fieldset.hidden = !shouldShow;
+            // Enable the fieldset itself when its service is selected.
+            // Otherwise its disabled attribute keeps every child control disabled.
+            fieldset.disabled = !shouldShow;
 
-          fieldset.querySelectorAll("input, select, textarea").forEach((field) => {
-            field.disabled = !shouldShow;
+            fieldset.querySelectorAll("input, select, textarea").forEach((field) => {
+              field.disabled = !shouldShow;
+            });
           });
-        });
-      }
+        }
 
-      if (serviceSelect) {
-        serviceSelect.addEventListener("change", updateServiceFields);
-        updateServiceFields();
-      }
+        if (serviceSelect) {
+          serviceSelect.addEventListener("change", updateServiceFields);
+          updateServiceFields();
+        }
+
 
       // Keep return/check-out dates after their corresponding start dates.
       function setDateMinimum(startName, endName) {
