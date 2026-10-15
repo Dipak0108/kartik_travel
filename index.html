@@ -237,7 +237,7 @@
               <figcaption><span>One travel desk. So many ways to get moving.</span><span class="art-card-caption-mark">KTT · DEHRADUN</span></figcaption>
             </figure>
           </section>
-          <section class="inquiry-section" id="inquiry">
+           <section class="inquiry-section" id="inquiry">
             <div class="site-width inquiry-layout">
               <div class="inquiry-intro"><span class="eyebrow eyebrow-light">LET’S GET YOU GOING</span>
                 <h2>Where would you<br>like to go?</h2>
@@ -408,33 +408,33 @@
       </div>
     </main>
     <script>
-    (() => {
-      "use strict";
+      (() => {
+        "use strict";
 
-      const form = document.getElementById("inquiry-form");
-      const status = document.getElementById("form-status");
-      const submitButton = form?.querySelector('[type="submit"]');
-      const emailAddress = "info.kartiktravel@gmail.com";
-      // WhatsApp number from the current website: India country code + number, digits only.
-      const whatsappNumber = "919967101107";
+        const form = document.getElementById("inquiry-form");
+        const status = document.getElementById("form-status");
+        const submitButton = form?.querySelector('[type="submit"]');
+        const emailAddress = "info.kartiktravel@gmail.com";
+        // WhatsApp number from the current website: India country code + number, digits only.
+        const whatsappNumber = "919967101107";
 
-      if (!form || !status || !submitButton) return;
+        if (!form || !status || !submitButton) return;
 
-      function showStatus(message, type) {
-        status.textContent = message;
-        status.className = "form-status " + (type === "success" ? "success-status" : "error-status");
-        status.hidden = false;
-      }
+        function showStatus(message, type) {
+          status.textContent = message;
+          status.className = "form-status " + (type === "success" ? "success-status" : "error-status");
+          status.hidden = false;
+        }
 
-     const serviceSelect = document.querySelector(
-        ".travel-site #service-select"
-      );
+       const serviceSelect = document.querySelector(
+          ".travel-site #service-select"
+        );
 
-      const serviceFieldsets = document.querySelectorAll(
-        ".travel-site .service-details[data-service]"
-      );
+        const serviceFieldsets = document.querySelectorAll(
+          ".travel-site .service-details[data-service]"
+        );
 
-      function updateServiceFields() {
+        function updateServiceFields() {
           const selectedService = serviceSelect.value;
 
           serviceFieldsets.forEach((fieldset) => {
@@ -457,136 +457,135 @@
           updateServiceFields();
         }
 
-
-      // Keep return/check-out dates after their corresponding start dates.
-      function setDateMinimum(startName, endName) {
-        const start = form.elements.namedItem(startName);
-        const end = form.elements.namedItem(endName);
-        if (!start || !end) return;
-        const sync = () => {
-          end.min = start.value || "";
-          if (start.value && end.value && end.value < start.value) end.value = "";
-        };
-        start.addEventListener("change", sync);
-        sync();
-      }
-      setDateMinimum("flightJourneyDate", "flightReturnDate");
-      setDateMinimum("trainJourneyDate", "trainReturnDate");
-      setDateMinimum("busJourneyDate", "busReturnDate");
-      setDateMinimum("hotelCheckIn", "hotelCheckOut");
-
-      form.addEventListener("submit", async (event) => {
-        event.preventDefault();
-
-        if (!form.reportValidity()) return;
-
-        const data = new FormData(form);
-        if (String(data.get("website") || "").trim()) {
-          showStatus("Thanks. Your enquiry has been received.", "success");
-          return;
+        // Keep return/check-out dates after their corresponding start dates.
+        function setDateMinimum(startName, endName) {
+          const start = form.elements.namedItem(startName);
+          const end = form.elements.namedItem(endName);
+          if (!start || !end) return;
+          const sync = () => {
+            end.min = start.value || "";
+            if (start.value && end.value && end.value < start.value) end.value = "";
+          };
+          start.addEventListener("change", sync);
+          sync();
         }
+        setDateMinimum("flightJourneyDate", "flightReturnDate");
+        setDateMinimum("trainJourneyDate", "trainReturnDate");
+        setDateMinimum("busJourneyDate", "busReturnDate");
+        setDateMinimum("hotelCheckIn", "hotelCheckOut");
 
-        const name = String(data.get("name") || "").trim();
-        const email = String(data.get("email") || "").trim();
-        const phone = String(data.get("phone") || "").trim();
-        const service = String(data.get("service") || "").trim();
-        const message = String(data.get("message") || "").trim();
+        form.addEventListener("submit", async (event) => {
+          event.preventDefault();
 
-        // Include only the fields belonging to the selected service.
-        const serviceDetails = [];
-        const activeGroup = serviceDetailGroups.find((group) => group.dataset.service === service && !group.disabled);
-        if (activeGroup) {
-          activeGroup.querySelectorAll("input, select, textarea").forEach((field) => {
-            const label =
-              field.closest("label")?.childNodes[0]?.textContent?.trim().replace(/\s+/g, " ") ||
-              field.name;
-            const value = String(field.value || "").trim();
-            if (value) serviceDetails.push(label + ": " + value);
-          });
-        }
-        const detailsText = serviceDetails.length ? serviceDetails.join("\n") : "No additional service-specific fields";
-        const enquiryText = [
-          "New travel enquiry — Kartik Tour & Travel",
-          "",
-          "Name: " + name,
-          "Email: " + email,
-          "Phone: " + phone,
-          "Service: " + service,
-          "",
-          "Service details:",
-          detailsText,
-          "",
-          "Additional message: " + (message || "Not provided")
-        ].join("\n");
+          if (!form.reportValidity()) return;
 
-        // WhatsApp opens with the complete enquiry prefilled; the visitor presses Send.
-        window.open("https://wa.me/" + whatsappNumber + "?text=" + encodeURIComponent(enquiryText), "_blank", "noopener,noreferrer");
-
-        submitButton.disabled = true;
-        submitButton.textContent = "Sending enquiry…";
-        showStatus("Opening WhatsApp and sending your enquiry by email…", "success");
-
-        try {
-          const response = await fetch("https://formsubmit.co/ajax/info.kartiktravel@gmail.com", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "Accept": "application/json"
-            },
-            body: JSON.stringify({
-              name,
-              email,
-              phone,
-              service,
-              serviceDetails: detailsText,
-              message: message || "Not provided",
-              _subject: "New " + service + " enquiry from Kartik Tour & Travel website",
-              _template: "table",
-              _captcha: "true"
-            })
-          });
-
-          const result = await response.json().catch(() => ({}));
-          if (!response.ok || result.success === "false") {
-            throw new Error("Email service did not confirm the submission.");
+          const data = new FormData(form);
+          if (String(data.get("website") || "").trim()) {
+            showStatus("Thanks. Your enquiry has been received.", "success");
+            return;
           }
 
-          showStatus(
-            "Your enquiry was submitted for email delivery. WhatsApp has opened with your details—please press Send in WhatsApp to deliver that message.",
-            "success"
-          );
-          form.reset();
-          updateServiceFields();
-        }
-        catch (error) {
-          showStatus(
-            "WhatsApp should be open with your enquiry. Press Send there. Email could not be confirmed—check FormSubmit activation and try again, or email " + emailAddress + " directly.",
-            "error"
-          );
-        }
-        finally {
-          submitButton.disabled = false;
-          submitButton.innerHTML = 'Send enquiry <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg>';
-        }
-      });
+          const name = String(data.get("name") || "").trim();
+          const email = String(data.get("email") || "").trim();
+          const phone = String(data.get("phone") || "").trim();
+          const service = String(data.get("service") || "").trim();
+          const message = String(data.get("message") || "").trim();
 
-      // Mobile navigation toggle, if the button exists in this page.
-      const menuButton = document.querySelector(".menu-toggle");
-      const nav = document.getElementById("primary-navigation");
-      if (menuButton && nav) {
-        menuButton.addEventListener("click", () => {
-          const open = nav.classList.toggle("is-open");
-          menuButton.setAttribute("aria-expanded", String(open));
-          menuButton.setAttribute("aria-label", open ? "Close navigation menu" : "Open navigation menu");
+          // Include only the fields belonging to the selected service.
+          const serviceDetails = [];
+          const activeGroup = Array.from(serviceFieldsets).find((group) => group.dataset.service === service && !group.disabled);
+          if (activeGroup) {
+            activeGroup.querySelectorAll("input, select, textarea").forEach((field) => {
+              const label =
+                field.closest("label")?.childNodes[0]?.textContent?.trim().replace(/\s+/g, " ") ||
+                field.name;
+              const value = String(field.value || "").trim();
+              if (value) serviceDetails.push(label + ": " + value);
+            });
+          }
+          const detailsText = serviceDetails.length ? serviceDetails.join("\n") : "No additional service-specific fields";
+          const enquiryText = [
+            "New travel enquiry — Kartik Tour & Travel",
+            "",
+            "Name: " + name,
+            "Email: " + email,
+            "Phone: " + phone,
+            "Service: " + service,
+            "",
+            "Service details:",
+            detailsText,
+            "",
+            "Additional message: " + (message || "Not provided")
+          ].join("\n");
+
+          // WhatsApp opens with the complete enquiry prefilled; the visitor presses Send.
+          window.open("https://wa.me/" + whatsappNumber + "?text=" + encodeURIComponent(enquiryText), "_blank", "noopener,noreferrer");
+
+          submitButton.disabled = true;
+          submitButton.textContent = "Sending enquiry…";
+          showStatus("Opening WhatsApp and sending your enquiry by email…", "success");
+
+          try {
+            const response = await fetch("https://formsubmit.co/ajax/info.kartiktravel@gmail.com", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+              },
+              body: JSON.stringify({
+                name,
+                email,
+                phone,
+                service,
+                serviceDetails: detailsText,
+                message: message || "Not provided",
+                _subject: "New " + service + " enquiry from Kartik Tour & Travel website",
+                _template: "table",
+                _captcha: "true"
+              })
+            });
+
+            const result = await response.json().catch(() => ({}));
+            if (!response.ok || result.success === "false") {
+              throw new Error("Email service did not confirm the submission.");
+            }
+
+            showStatus(
+              "Your enquiry was submitted for email delivery. WhatsApp has opened with your details—please press Send in WhatsApp to deliver that message.",
+              "success"
+            );
+            form.reset();
+            updateServiceFields();
+          }
+          catch (error) {
+            showStatus(
+              "WhatsApp should be open with your enquiry. Press Send there. Email could not be confirmed—check FormSubmit activation and try again, or email " + emailAddress + " directly.",
+              "error"
+            );
+          }
+          finally {
+            submitButton.disabled = false;
+            submitButton.innerHTML = 'Send enquiry <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg>';
+          }
         });
-        nav.querySelectorAll("a").forEach((link) => {
-          link.addEventListener("click", () => {
-            nav.classList.remove("is-open");
-            menuButton.setAttribute("aria-expanded", "false");
+
+        // Mobile navigation toggle, if the button exists in this page.
+        const menuButton = document.querySelector(".menu-toggle");
+        const nav = document.getElementById("primary-navigation");
+        if (menuButton && nav) {
+          menuButton.addEventListener("click", () => {
+            const open = nav.classList.toggle("is-open");
+            menuButton.setAttribute("aria-expanded", String(open));
+            menuButton.setAttribute("aria-label", open ? "Close navigation menu" : "Open navigation menu");
           });
-        });
-      }
-    })();
+          nav.querySelectorAll("a").forEach((link) => {
+            link.addEventListener("click", () => {
+              nav.classList.remove("is-open");
+              menuButton.setAttribute("aria-expanded", "false");
+            });
+          });
+        }
+      })();
     </script>
     <!-- Hero background slideshow -->
     <script>
